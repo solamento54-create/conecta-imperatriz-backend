@@ -1,34 +1,42 @@
-"""Enums usados em vários modelos."""
-import enum
+"""
+Enums usados no sistema Conecta Imperatriz.
+IMPORTANTE: os valores devem bater EXATAMENTE com os ENUM types do PostgreSQL.
+"""
+from enum import Enum
 
 
-class PerfilUsuario(str, enum.Enum):
+class PerfilUsuario(str, Enum):
+    """Perfis de usuário do painel (admin/fiscal/secretaria)."""
     ADMIN = "admin"
     FISCAL = "fiscal"
     SECRETARIA = "secretaria"
 
 
-class StatusOcorrencia(str, enum.Enum):
-    ANALISE = "analise"
-    EXECUCAO = "execucao"
+class StatusOcorrencia(str, Enum):
+    """Status do ciclo de vida de uma ocorrência."""
+    NOVA = "nova"
+    TRIAGEM = "triagem"
+    EM_EXECUCAO = "em_execucao"
     RESOLVIDA = "resolvida"
     REJEITADA = "rejeitada"
 
 
-class UrgenciaOcorrencia(str, enum.Enum):
+class UrgenciaOcorrencia(str, Enum):
+    """Nível de urgência da ocorrência."""
     BAIXA = "baixa"
     MEDIA = "media"
     ALTA = "alta"
     CRITICA = "critica"
 
 
-class TipoFoto(str, enum.Enum):
+class TipoFoto(str, Enum):
+    """Tipo da foto associada a uma ocorrência."""
     INICIAL = "inicial"
-    EM_EXECUCAO = "em_execucao"
+    EXECUCAO = "execucao"
     RESOLVIDA = "resolvida"
 
 
-class CanalNotificacao(str, enum.Enum):
-    PUSH = "push"
-    EMAIL = "email"
-    SMS = "sms"
+class PlataformaPush(str, Enum):
+    """Plataforma do dispositivo para push notifications."""
+    ANDROID = "android"
+    IOS = "ios"
