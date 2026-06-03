@@ -1,6 +1,6 @@
 """
 Dependências FastAPI compartilhadas pelos routers.
-Inclui: obter usuário do JWT, autorização por perfil, etc.
+Inclui aliases pra todos os nomes usados nos diferentes routers.
 """
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -77,8 +77,12 @@ def get_current_cidadao(
     return cidadao
 
 
-# Alias - mesma função com nome alternativo (para compatibilidade)
+# ============================================
+# ALIASES — todos os nomes possíveis
+# ============================================
 get_cidadao_atual = get_current_cidadao
+get_usuario_atual = get_current_user
+get_current_usuario = get_current_user
 
 
 def require_admin(usuario: Usuario = Depends(get_current_user)) -> Usuario:
