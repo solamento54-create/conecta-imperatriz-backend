@@ -6,7 +6,7 @@ from enum import Enum
 
 
 class PerfilUsuario(str, Enum):
-    """Perfis de usuário do painel (admin/fiscal/secretaria)."""
+    """Perfis de usuário do painel."""
     ADMIN = "admin"
     FISCAL = "fiscal"
     SECRETARIA = "secretaria"
@@ -15,8 +15,10 @@ class PerfilUsuario(str, Enum):
 class StatusOcorrencia(str, Enum):
     """Status do ciclo de vida de uma ocorrência."""
     NOVA = "nova"
+    ANALISE = "analise"
     TRIAGEM = "triagem"
     EM_EXECUCAO = "em_execucao"
+    EXECUCAO = "em_execucao"
     RESOLVIDA = "resolvida"
     REJEITADA = "rejeitada"
 
@@ -40,3 +42,10 @@ class PlataformaPush(str, Enum):
     """Plataforma do dispositivo para push notifications."""
     ANDROID = "android"
     IOS = "ios"
+
+
+# Aliases pra compatibilidade
+StatusDenuncia = StatusOcorrencia
+UrgenciaDenuncia = UrgenciaOcorrencia
+PerfilFuncionario = PerfilUsuario
+TipoUsuario = PerfilUsuario
