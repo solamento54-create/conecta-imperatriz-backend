@@ -57,7 +57,7 @@ def get_current_user(
     return usuario
 
 
-def get_cidadao_atual(
+def get_current_cidadao(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db),
 ) -> Cidadao:
@@ -75,6 +75,10 @@ def get_cidadao_atual(
     if not cidadao or not cidadao.ativo:
         raise HTTPException(401, "Cidadão inativo ou não encontrado")
     return cidadao
+
+
+# Alias - mesma função com nome alternativo (para compatibilidade)
+get_cidadao_atual = get_current_cidadao
 
 
 def require_admin(usuario: Usuario = Depends(get_current_user)) -> Usuario:
