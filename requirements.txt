@@ -1,0 +1,36 @@
+# ─────────────────────────────────────────────────────────────
+# Conecta Imperatriz — Backend Dependencies
+# ─────────────────────────────────────────────────────────────
+
+# Framework web
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+
+# Banco de dados
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.10
+alembic==1.13.3
+
+# Validação e schemas
+pydantic==2.9.2
+pydantic-settings==2.6.0
+email-validator==2.2.0
+
+# Autenticação e segurança
+python-jose[cryptography]==3.3.0
+bcrypt==4.2.0
+python-multipart==0.0.12
+
+# Upload e arquivos
+pillow==11.0.0
+supabase==2.9.1
+storage3==0.8.2
+
+# Utilitários
+python-dateutil==2.9.0
+validate-docbr==1.10.0
+
+# Desenvolvimento
+pytest==8.3.3
+httpx==0.27.2
+black==24.10.0

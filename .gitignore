@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Uploads
+uploads/
+
+# Logs
+*.log
+logs/
+
+# Alembic
+# (mantém versions/ no git, mas se quiser ignorar específico, descomente)
+# alembic/versions/*.py
