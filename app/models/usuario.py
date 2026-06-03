@@ -1,10 +1,9 @@
-"""Modelo Usuario (funcionários da prefeitura)."""
-from sqlalchemy import (
-    Column, BigInteger, String, Boolean, DateTime, ForeignKey,
-    Enum as SQLEnum, CheckConstraint
-)
-from sqlalchemy.sql import func
+"""Modelo Usuario - funcionários da prefeitura (admin/fiscal/secretaria)."""
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy.dialects.postgresql import ENUM as PgEnum
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 from app.core.database import Base
 from app.models.enums import PerfilUsuario
 
@@ -12,28 +11,31 @@ from app.models.enums import PerfilUsuario
 class Usuario(Base):
     __tablename__ = "usuarios"
 
-    id = Column(BigInteger, primary_key=True, index=True)
-    cpf = Column(String(14), unique=True, nullable=False)
-    nome_completo = Column(String(150), nullable=False)
-    email = Column(String(150), unique=True, nullable=False, index=True)
-    telefone = Column(String(20))
-    cargo = Column(String(100))
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), unique=True, nullable=False, index=True)
     senha_hash = Column(String(255), nullable=False)
-    perfil = Column(SQLEnum(PerfilUsuario, name="perfil_usuario"), nullable=False)
-    secretaria_id = Column(BigInteger, ForeignKey("secretarias.id"))
-    token_recuperacao = Column(String(255))
-    ativo = Column(Boolean, nullable=False, default=True)
-    criado_em = Column(DateTime(timezone=True), server_default=func.now())
-    ultimo_login = Column(DateTime(timezone=True))
-
-    # Regra: perfil 'secretaria' obriga secretaria_id; admin/fiscal proíbe
-    __table_args__ = (
-        CheckConstraint(
-            "(perfil = 'secretaria' AND secretaria_id IS NOT NULL) OR "
-            "(perfil IN ('admin', 'fiscal') AND secretaria_id IS NULL)",
-            name="chk_perfil_secretaria"
+    nome_completo = Column(String(200), nullable=False)
+    cpf = Column(String(11), nullable=True)
+    telefone = Column(String(20), nullable=True)
+    
+    # Usa o tipo ENUM correto do banco (perfil_usuario com valores em minúsculo)
+    perfil = Column(
+        PgEnum(
+            "admin", "fiscal", "secretaria",
+            name="perfil_usuario",
+            create_type=False,
         ),
+        nullable=False,
     )
+    
+    secretaria_id = Column(Integer, ForeignKey("secretarias.id"), nullable=True)
+    ativo = Column(Boolean, default=True, nullable=False)
+    
+    criado_em = Column(DateTime(timezone=True), server_default=func.now())
+    atualizado_em = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
-    secretaria = relationship("Secretaria", back_populates="usuarios")
-    historico_alteracoes = relationship("HistoricoStatus", back_populates="usuario")
+    # Relacionamentos
+    secretaria = relationship("Secretaria", back_populates="usuarios", foreign_keys=[secretaria_id])
+    
+    def __repr__(self):
+        return f"<Usuario(id={self.id}, email='{self.email}', perfil='{self.perfil}')>"
