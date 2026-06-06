@@ -8,7 +8,6 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 from app.models.enums import StatusOcorrencia, UrgenciaOcorrencia
 
-
 class Ocorrencia(Base):
     __tablename__ = "ocorrencias"
 
@@ -34,13 +33,14 @@ class Ocorrencia(Base):
 
     # Status e prioridade
     status = Column(
-        SQLEnum(StatusOcorrencia, name="status_ocorrencia"),
+        SQLEnum(StatusOcorrencia, name="status_ocorrencia", values_callable=lambda x: [e.value for e in x]),
         nullable=False, default=StatusOcorrencia.ANALISE, index=True
     )
     urgencia = Column(
-        SQLEnum(UrgenciaOcorrencia, name="urgencia_ocorrencia"),
+        SQLEnum(UrgenciaOcorrencia, name="urgencia_ocorrencia", values_callable=lambda x: [e.value for e in x]),
         nullable=False, default=UrgenciaOcorrencia.BAIXA, index=True
     )
+
     contador_apoios = Column(Integer, nullable=False, default=0)
 
     # Resolução
