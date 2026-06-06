@@ -23,8 +23,8 @@ python-multipart==0.0.12
 
 # Upload e arquivos
 pillow==11.0.0
-supabase==2.9.1
-storage3==0.8.2
+supabase==2.15.0
+storage3==0.11.3
 
 # Utilitários
 python-dateutil==2.9.0
