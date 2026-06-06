@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24h
 
     # ── CORS ────────────────────────────────────────────────
-    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,http://localhost:8080,http://127.0.0.1:5500,null"
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,http://localhost:8080,http://127.0.0.1:5500,null,https://conecta-imperatriz-painel.vercel.app"
 
     # ── Storage ─────────────────────────────────────────────
     STORAGE_MODE: str = "local"     # 'local' ou 'supabase'
