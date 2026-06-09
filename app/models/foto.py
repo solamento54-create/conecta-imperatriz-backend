@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 from app.models.enums import TipoFoto
 
-
 class Foto(Base):
     __tablename__ = "fotos"
 
@@ -13,9 +12,9 @@ class Foto(Base):
     ocorrencia_id = Column(BigInteger, ForeignKey("ocorrencias.id", ondelete="CASCADE"), nullable=False)
     url = Column(Text, nullable=False)
     thumbnail_url = Column(Text)
-    tipo = Column(SQLEnum(TipoFoto, name="tipo_foto"), nullable=False, default=TipoFoto.INICIAL)
+    tipo = Column(SQLEnum(TipoFoto, name="tipo_foto", values_callable=lambda x: [e.value for e in x]), nullable=False, default=TipoFoto.INICIAL)
     tamanho_kb = Column(Integer)
-    enviado_por_tipo = Column(String(20))   # 'cidadao' ou 'usuario'
+    enviado_por_tipo = Column(String(20))
     enviado_por_id = Column(BigInteger)
     data_envio = Column(DateTime(timezone=True), server_default=func.now())
 
